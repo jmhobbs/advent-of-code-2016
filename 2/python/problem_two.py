@@ -1,8 +1,8 @@
-from keypad import Keypad
+from keypad import InfuriatingKeypad
 
 with open('../input') as handle:
 
-    keypad = Keypad()
+    keypad = InfuriatingKeypad()
     code = []
 
     for row in handle:
