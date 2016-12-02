@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-from solution import TaxiMap
+from taximap import TaxiMap
 
 
 def main():
     taxi_map = TaxiMap()
-    with open('input', 'rb') as handle:
+    with open('../input', 'rb') as handle:
         for instruction in map(str.strip, handle.read().split(',')):
             taxi_map.step(instruction)
-        print "Blocks Away:", taxi_map.blocks_away()
+        first_repeat = taxi_map.repeated_points()[0]
+        print "Blocks Away:", first_repeat.blocks
 
 if __name__ == '__main__':
     main()

@@ -2,7 +2,7 @@
 
 from collections import namedtuple
 
-Point = namedtuple('Point', ['x', 'y', 'blocks'])
+Intersection = namedtuple('Intersection', ['x', 'y', 'blocks'])
 
 NORTH = 0
 EAST = 1
@@ -16,7 +16,7 @@ class TaxiMap(object):
         self.orientation = NORTH
         self.x = 0
         self.y = 0
-        self.history = [Point(0, 0, 0)]
+        self.history = [Intersection(0, 0, 0)]
 
     def __turn(self, direction):
         if direction == 'R':
@@ -43,7 +43,7 @@ class TaxiMap(object):
         self.__turn(instruction[0])
         for interval in xrange(1, int(instruction[1:])+1):
             self.__move()
-            self.history.append(Point(self.x, self.y, abs(self.x) + abs(self.y)))
+            self.history.append(Intersection(self.x, self.y, abs(self.x) + abs(self.y)))
 
     def blocks_away(self):
         return self.history[-1].blocks

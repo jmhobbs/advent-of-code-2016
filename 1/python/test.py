@@ -1,5 +1,6 @@
 import unittest
-from solution import TaxiMap
+from taximap import TaxiMap
+
 
 class TaxiMapTest(unittest.TestCase):
     def setUp(self):
