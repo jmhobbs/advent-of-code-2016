@@ -1,5 +1,12 @@
+# Compiled nim filenames
+problem_one
+problem_two
+test
 
-# Created by https://www.gitignore.io/api/osx,vim,python
+# Created by https://www.gitignore.io/api/nim,osx,vim,python
+
+### Nim ###
+nimcache/
 
 ### OSX ###
 *.DS_Store
