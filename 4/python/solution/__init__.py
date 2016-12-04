@@ -14,3 +14,20 @@ ROOM_STRING_PATTERN = re.compile('^([a-z\-]+)-([0-9]+)\[([a-z]+)')
 def split_room_string(room_string):
     result = ROOM_STRING_PATTERN.match(room_string)
     return result.groups()
+
+ALPHA = 'abcdefghijklmnopqrstuvwxyz'
+def decrypt(ciphertext, sector):
+    real_shift = sector % 26
+    plaintext = ""
+    for letter in ciphertext:
+        if letter == '-':
+            plaintext += ' '
+            continue
+
+        index = ALPHA.find(letter) + real_shift
+        if index > 25:
+            index -= 26
+
+        plaintext += ALPHA[index]
+
+    return plaintext

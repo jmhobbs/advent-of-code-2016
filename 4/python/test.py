@@ -1,5 +1,5 @@
 import unittest
-from solution import is_real_room, split_room_string
+from solution import is_real_room, split_room_string, decrypt
 
 
 class RoomParseTest(unittest.TestCase):
@@ -26,3 +26,10 @@ class RoomChecksumTest(unittest.TestCase):
     # totally-real-room-200[decoy] is not.
     def test_sample_4(self):
         self.assertFalse(is_real_room("totally-real-room", "decoy"))
+
+
+class ShiftCipherTest(unittest.TestCase):
+
+    # For example, the real name for qzmt-zixmtkozy-ivhz-343 is very encrypted name.
+    def test_sample_1(self):
+        self.assertEqual("very encrypted name", decrypt("qzmt-zixmtkozy-ivhz", 343))
