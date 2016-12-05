@@ -1,5 +1,5 @@
 import unittest
-from solution import find_password
+from solution import find_password, find_second_password
 
 
 class TestFindPassword(unittest.TestCase):
@@ -10,3 +10,10 @@ class TestFindPassword(unittest.TestCase):
     # In this example, after continuing this search a total of eight times, the password is 18f47a30.
     def test_sample_1(self):
         self.assertEqual(find_password("abc"), "18f47a30")
+
+    # The first interesting hash is from abc3231929, which produces 0000015...; so, 5 goes in position 1: _5______.
+    # In the previous method, 5017308 produced an interesting hash; however, it is ignored, because it specifies an invalid position (8).
+    # The second interesting hash is at index 5357525, which produces 000004e...; so, e goes in position 4: _5__e___.
+    # You almost choke on your popcorn as the final character falls into place, producing the password 05ace8e3.
+    def test_sample_2(self):
+        self.assertEqual(find_second_password("abc"), "05ace8e3")
