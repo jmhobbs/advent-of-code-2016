@@ -15,6 +15,15 @@ class MessageCorrector(object):
     def getMessage(self):
         message = []
         for letter in self.counters:
-            scored = sorted(letter.items(), key=lambda x: (-1 * x[1], x[0]))
+            scored = self.sortMessage(letter)
             message.append(scored[0][0])
         return ''.join(message)
+
+    def sortMessage(self, letter):
+        return sorted(letter.items(), key=lambda x: (-1 * x[1], x[0]))
+
+
+class ModifiedMessageCorrector(MessageCorrector):
+
+    def sortMessage(self, letter):
+        return sorted(letter.items(), key=lambda x: (x[1], x[0]))
