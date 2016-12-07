@@ -1,5 +1,5 @@
 import unittest
-from solution import split_ip, isTLSIP
+from solution import split_ip, isTLSIP, isSSLIP
 
 
 class TestSplitIP(unittest.TestCase):
@@ -39,3 +39,23 @@ class TestIsTLSIP(unittest.TestCase):
     # ioxxoj[asdfgh]zxcvbn supports TLS (oxxo is outside square brackets, even though it's within a larger string).
     def test_sample_3(self):
         self.assertTrue(isTLSIP("ioxxoj[asdfgh]zxcvbn"))
+
+
+class TestIsSSLIP(unittest.TestCase):
+
+    # aba[bab]xyz supports SSL (aba outside square brackets with corresponding bab within square brackets).
+    def test_sample_1(self):
+        self.assertTrue(isSSLIP("aba[bab]xyz"))
+
+    # xyx[xyx]xyx does not support SSL (xyx, but no corresponding yxy).
+    def test_sample_1(self):
+        self.assertFalse(isSSLIP("xyx[xyx]xyx"))
+
+    # aaa[kek]eke supports SSL (eke in supernet with corresponding kek in hypernet; the aaa sequence is not related, because the interior character must be different).
+    def test_sample_1(self):
+        self.assertTrue(isSSLIP("aaa[kek]eke"))
+
+    # zazbz[bzb]cdb supports SSL (zaz has no corresponding aza, but zbz has a corresponding bzb, even though zaz and zbz overlap).
+    def test_sample_1(self):
+        self.assertTrue(isSSLIP("zazbz[bzb]cdb"))
+

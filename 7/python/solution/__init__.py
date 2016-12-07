@@ -4,33 +4,53 @@ import re
 REGEX=re.compile('\[.*?\]')
 def split_ip(ip):
     hypernets = []
-    groups = []
-    for group in ip.split('['):
-        split = group.split(']')
+    supernets = []
+    for supernet in ip.split('['):
+        split = supernet.split(']')
         if len(split) == 2:
             hypernets.append(split[0])
-            groups.append(split[1])
+            supernets.append(split[1])
         else:
-            groups.append(group)
-    return [groups, hypernets]
+            supernets.append(supernet)
+    return [supernets, hypernets]
 
-def isABBAString(seq):
-    for i in xrange(0, len(seq)-3):
-        if seq[i] == seq[i+3] and seq[i+1] == seq[i+2] and seq[i] != seq[i+1]:
+def isABBAString(net):
+    for i in xrange(0, len(net)-3):
+        if net[i] == net[i+3] and net[i+1] == net[i+2] and net[i] != net[i+1]:
             return True
 
 def isTLSIP(ip):
     result = False
-    seqs, hypernets = split_ip(ip)
+    supernets, hypernets = split_ip(ip)
 
-    for seq in seqs:
-        if isABBAString(seq):
+    for net in supernets:
+        if isABBAString(net):
             result = True
             break
 
-    for seq in hypernets:
-        if isABBAString(seq):
+    for net in hypernets:
+        if isABBAString(net):
             result = False
             break
 
     return result
+
+def getABAs(net):
+    abas = []
+    for i in xrange(0, len(net)-2):
+        if net[i] == net[i+2] and net[i] != net[i+1]:
+            abas.append((net[i], net[i+1]))
+    return abas
+
+def isSSLIP(ip):
+    supernets, hypernets = split_ip(ip)
+
+    for net in supernets:
+        abas = getABAs(net)
+        for aba in abas:
+            bab = ''.join((aba[1], aba[0], aba[1]))
+            for h_net in hypernets:
+                if bab in h_net:
+                    return True
+
+    return False
